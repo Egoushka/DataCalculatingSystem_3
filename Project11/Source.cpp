@@ -527,42 +527,65 @@ void additionFourEx() {
     }
 }
 void fifth() {
-    std::ifstream ist("dates.txt", std::ios::binary );
-    std::ofstream ost("collected.txt");
-    if (!(ist.is_open() && ost.is_open())) {
-        std::cout<< "The error has occure\n";
+    std::ifstream ist("dates.txt", std::ios::binary);
+    std::ifstream ist2("text.txt");
+    if (!(ist.is_open() && ist2.is_open())) {
+        std::cout << "The error has occure\n";
         return;
     }
     std::tr1::regex rx("\\d{2}.{1}\\d{2}.{1}\\d{4}");
 
     char* buf;
+    char* buf2;
     int bufSize;
-    std::map<std::string, int> dates;
-    std::string str = "";
+    int bufSize2;
+    std::map<std::string, std::string> data;
+    std::string key = "";
+    std::string value = "";
 
     bufSize = calculateSize(ist);
+    bufSize2 = calculateSize(ist2);
+
     buf = new char[bufSize];
-    
+    buf2 = new char[bufSize2];
+
     ist.read(buf, bufSize);
-
+    ist2.read(buf2, bufSize2);
+    ist.close();
+    ist2.close();
     buf[bufSize] = '\0';
-
+    buf2[bufSize2] = '\0';
     for (int index = 0; index <= bufSize; ++index) {
-        if (buf[index] == ' ' || buf[index] == '\n' ||buf[index] == '\r'|| buf[index] == '\0') {
-            if (regex_search(str.begin(), str.end(), rx)) {             
-                dates[str]++;      
+        if (buf[index] == '-') {
+
+            for (index = index + 1; buf[index] != '\n' && buf[index] != '\r' && buf[index] != '\0'; ++index)
+            {
+                value += buf[index];
             }
-            str = "";
-            std::cout<< std::endl;
+            ++index;
+            data.insert(std::pair<std::string, std::string>(key, value));
+            data[key] = value;
+            key = "";
+            value = "";
             continue;
         }
-        std::cout<< buf[index];
-            str += buf[index];
+        key += buf[index];
     }
+    key = "";
+    std::ofstream ost("text.txt", std::ios::binary);
+    for (int index = 0; index <= bufSize2; ++index) {
+        if (buf2[index] == ' ' || buf2[index] == '\n' || buf2[index] == '\r' || buf2[index] == '\0')
+        {
+            if (data.count(key)) {
+                ost << data[key] + buf2[index];
 
-    std::map<std::string, int> ::iterator it = dates.begin();
-
-    for (int index = 0; it != dates.end(); ++index,++it) {
-        ost << it->first << " -> " << it->second << std::endl;
+            }
+            else {
+                ost << key + buf2[index];
+            }
+            key = "";
+            ++index;
+        }
+        key += buf2[index];
     }
 }
