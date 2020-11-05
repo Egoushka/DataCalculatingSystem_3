@@ -527,42 +527,58 @@ void additionFourEx() {
     }
 }
 void fifth() {
-    std::ifstream ist("dates.txt", std::ios::binary );
-    std::ofstream ost("collected.txt");
-    if (!(ist.is_open() && ost.is_open())) {
-        std::cout<< "The error has occure\n";
+    std::ifstream ist("dates.txt", std::ios::binary);
+    if (!(ist.is_open())) {
+        std::cout << "The error has occure\n";
         return;
     }
     std::tr1::regex rx("\\d{2}.{1}\\d{2}.{1}\\d{4}");
 
     char* buf;
+
     int bufSize;
-    std::map<std::string, int> dates;
-    std::string str = "";
+
+    std::map<std::string, int> data;
+    std::string key = "";
 
     bufSize = calculateSize(ist);
+
     buf = new char[bufSize];
-    
+
     ist.read(buf, bufSize);
+    ist.close();
 
     buf[bufSize] = '\0';
-
-    for (int index = 0; index <= bufSize; ++index) {
-        if (buf[index] == ' ' || buf[index] == '\n' ||buf[index] == '\r'|| buf[index] == '\0') {
-            if (regex_search(str.begin(), str.end(), rx)) {             
-                dates[str]++;      
+    int maxSize = 0;
+    for (int index = 0, start = index; index <= bufSize; ++index) {
+        if ((buf[index] == ' ' || buf[index] == '\r' || buf[index] == '\0') && key != "") {
+            if (index - start > maxSize) {
+                maxSize = index - start - 1;
             }
-            str = "";
-            std::cout<< std::endl;
+            start = index;
+            ++data[key];
+            key = "";
+
             continue;
         }
-        std::cout<< buf[index];
-            str += buf[index];
+        if (buf[index] != '\n')
+            key += buf[index];
+    }
+    std::map<string, int>::iterator it = data.begin();
+    for (; it != data.end(); ++it) {
+        cout << it->first << "\t->" << it->second << "\n";
     }
 
-    std::map<std::string, int> ::iterator it = dates.begin();
-
-    for (int index = 0; it != dates.end(); ++index,++it) {
-        ost << it->first << " -> " << it->second << std::endl;
+    cout << "Words with the biggest size\n\r";
+    for (int index = 0, start = index; index <= bufSize; ++index) {
+        if (buf[index] == ' ' || buf[index] == '\n' || buf[index] == '\r' || buf[index] == '\0') {
+            if (index - start - 1 == maxSize) {
+                cout << key << endl;
+            }
+            start = index;
+            key = "";
+            continue;
+        }
+        key += buf[index];
     }
 }
