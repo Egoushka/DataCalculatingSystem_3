@@ -1,12 +1,12 @@
 ﻿  Source.cpp
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(87,14): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(200,24): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(224,24): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(259,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(303,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(358,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(409,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(397,9): warning C4101: 'newNum': unreferenced local variable
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(412,9): warning C4101: 'tmp': unreferenced local variable
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(399,9): warning C4101: 'numIndex2': unreferenced local variable
-  Project11.vcxproj -> C:\Users\Professional\Source\Repos\Project11\x64\Debug\Project11.exe
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(96,13): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(209,24): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(233,24): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(268,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(312,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(367,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(418,16): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(406,9): warning C4101: 'newNum': unreferenced local variable
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(421,9): warning C4101: 'tmp': unreferenced local variable
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(408,9): warning C4101: 'numIndex2': unreferenced local variable
+C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(607,10): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning.

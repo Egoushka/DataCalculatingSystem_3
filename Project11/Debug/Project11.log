@@ -1,5 +1,1 @@
-﻿  Source.cpp
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(51,22): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(90,22): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Professional\Source\Repos\Project11\Project11\Source.cpp(149,20): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-  Project11.vcxproj -> C:\Users\Professional\Source\Repos\Project11\Debug\Project11.exe
+﻿

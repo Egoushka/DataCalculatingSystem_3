@@ -4,8 +4,11 @@
 #include <locale.h>
 #include <regex>
 #include <map>
-
-int calculateSize(std::ifstream&);
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <windows.h>
+using namespace std; int calculateSize(std::ifstream&);
 void controller();
 void firstEx();
 void additionFirstEx();
@@ -18,14 +21,20 @@ void additionThirdEx3();
 void fourEx();
 void additionFourEx();
 void fifth();
+
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
     controller();
     return 0;
-}
 
+
+
+    system("pause");
+    return 0;
+
+}
 
 
 void controller() {
@@ -84,18 +93,18 @@ void controller() {
 }
 int calculateSize(std::ifstream& someFile) {
     someFile.seekg(0, std::ios::end);
-    int tmp  = someFile.tellg();
+    int tmp = someFile.tellg();
     someFile.seekg(0, std::ios::beg);
     return tmp;
 }
 void firstEx() {
     int length;
     char* buffer;
-    char separators[]{'.','!',';'};
+    char separators[]{ '.','!',';' };
     int separatorsLenght = 3;
     std::ifstream ist("Shakespeare_WintersTale.txt");
     if (!ist.is_open()) {
-        std::cout<< "Opens error\n";
+        std::cout << "Opens error\n";
         return;
     }
 
@@ -104,24 +113,24 @@ void firstEx() {
     buffer = new char[length];
     ist.read(buffer, length);
     ist.close();
-    
-    for (int index = 0,start = 0, end; buffer[index] != 0; ++index) {
+
+    for (int index = 0, start = 0, end; buffer[index] != 0; ++index) {
         if (buffer[index] == '?') {
             end = index + 1;
             while (start != end) {
 
-                std::cout<< buffer[start];
+                std::cout << buffer[start];
                 start++;
             }
             start++;
-            std::cout<< '\n';
+            std::cout << '\n';
         }
         for (int separatorIndex = 0; separatorIndex < separatorsLenght; ++separatorIndex) {
             if (separators[separatorIndex] == buffer[index]) {
                 start = index + 1;
             }
         }
-        
+
     }
     delete[] buffer;
 }
@@ -132,9 +141,9 @@ void additionFirstEx() {
     int separatorsLenght = 3;
     std::ifstream ist("text.txt");
     std::ofstream os("text2.txt");
-   
+
     if (!ist.is_open() || !os.is_open()) {
-        std::cout<< "Opens error\n";
+        std::cout << "Opens error\n";
         return;
     }
 
@@ -143,7 +152,7 @@ void additionFirstEx() {
     buffer = new char[length];
     ist.read(buffer, length);
     ist.close();
-    
+
     for (int index = 0, start = 0, end; buffer[index] != 0; ++index) {
         if (buffer[index] == '!') {
             end = index + 1;
@@ -153,7 +162,7 @@ void additionFirstEx() {
                 start++;
             }
             start++;
-            std::cout<< '\n';
+            std::cout << '\n';
         }
         for (int separatorIndex = 0; separatorIndex < separatorsLenght; ++separatorIndex) {
             if (separators[separatorIndex] == buffer[index]) {
@@ -212,20 +221,20 @@ void secondEx() {
 }
 void additionSecondEx() {
     std::ofstream os("z3.dat", std::ios::binary);
-    std::ifstream ist("Shakespeare_WintersTale.txt", std::ios::binary );
-    if (!(os.is_open())&&ist.is_open()) {
-        std::cout<< "Opens error\n";
+    std::ifstream ist("Shakespeare_WintersTale.txt", std::ios::binary);
+    if (!(os.is_open()) && ist.is_open()) {
+        std::cout << "Opens error\n";
         return;
     }
     int bufSize;
     char* buf;
 
-    ist.seekg(0,  std::ios::end);
+    ist.seekg(0, std::ios::end);
     bufSize = ist.tellg();
     ist.seekg(0, std::ios::beg);
     buf = new char[bufSize];
     ist.read(buf, bufSize);
-    
+
     os.write((char*)buf, sizeof(char) * bufSize);
 
     os.close();
@@ -236,52 +245,52 @@ void thirdEx() {
     for (int index = 0; index < arrSize; ++index) {
         arr[index] = index;
     }
-    std::ofstream ofs("z3_3.txt", std::ios::binary );
+    std::ofstream ofs("z3_3.txt", std::ios::binary);
     if (!ofs.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
     ofs.write((char*)arr, sizeof(arr));
-    
+
     ofs.close();
 
     int newNum;
     int numIndex;
-    std::cout<< "Enter the number and its index\n";
+    std::cout << "Enter the number and its index\n";
     std::cin >> newNum >> numIndex;
 
-    std::fstream fst("z3_3.txt", std::ios::binary  | std::ios::in | std::ios::out);
+    std::fstream fst("z3_3.txt", std::ios::binary | std::ios::in | std::ios::out);
     if (!fst.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
-    fst.seekg(0,  std::ios::end);
+    fst.seekg(0, std::ios::end);
     int lenght = fst.tellg();
-    std::cout<< "The file size ist: " << lenght << "bytes\n";
+    std::cout << "The file size ist: " << lenght << "bytes\n";
     int possition = numIndex * sizeof(int);
 
-    std::cout<< "Position of the edited element: " << possition << '\n';
+    std::cout << "Position of the edited element: " << possition << '\n';
     fst.seekp(possition, std::ios::beg);
     fst.write((char*)&newNum, sizeof(int));
     fst.seekg(0);
     fst.read((char*)&arr, sizeof(arr));
     for (int index = 0; index < arrSize; ++index)
     {
-        std::cout<< arr[index] << " ";
+        std::cout << arr[index] << " ";
     }
-   
+
 }
 void additionThirdEx() {
     int arrSize;
-    std::cout<< "Enter the size of array\n";
+    std::cout << "Enter the size of array\n";
     std::cin >> arrSize;
     int* arr = new int[arrSize];
     for (int index = 0; index < arrSize; ++index) {
         arr[index] = index;
     }
-    std::ofstream ofs("z3_3.txt", std::ios::binary );
+    std::ofstream ofs("z3_3.txt", std::ios::binary);
     if (!ofs.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
     ofs.write((char*)arr, sizeof(arr) * arrSize);
@@ -290,21 +299,21 @@ void additionThirdEx() {
 
     int newNum;
     int numIndex;
-      std::fstream fst("z3_3.txt", std::ios::binary  | std::ios::in | std::ios::out);
-      std::cout<< "Enter the number and its index\n";
-      std::cin >> newNum >> numIndex;
+    std::fstream fst("z3_3.txt", std::ios::binary | std::ios::in | std::ios::out);
+    std::cout << "Enter the number and its index\n";
+    std::cin >> newNum >> numIndex;
 
-  
+
     if (!fst.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
-    fst.seekg(0,  std::ios::end);
+    fst.seekg(0, std::ios::end);
     int lenght = fst.tellg();
-    std::cout<< "The file size ist: " << lenght << "bytes\n";
+    std::cout << "The file size ist: " << lenght << "bytes\n";
     int possition = numIndex * sizeof(int);
 
-    std::cout<< "Position of the edited element: " << possition << '\n';
+    std::cout << "Position of the edited element: " << possition << '\n';
     fst.seekp(possition, std::ios::beg);
     fst.write((char*)&newNum, sizeof(int));
     fst.seekp(0);
@@ -313,32 +322,32 @@ void additionThirdEx() {
     fst.read((char*)arr, sizeof(arr) * arrSize);
     for (int index = 0; index < arrSize; ++index)
     {
-        std::cout<< arr[index] << " ";
+        std::cout << arr[index] << " ";
     }
 
 }
 void additionThirdEx2() {
     int arrSize;
-    std::cout<< "Enter the size of array\n";
+    std::cout << "Enter the size of array\n";
     std::cin >> arrSize;
-    int** arr = new int*[arrSize];
+    int** arr = new int* [arrSize];
     for (int index = 0; index < arrSize; ++index) {
         arr[index] = new int[arrSize];
     }
     for (int index = 0; index < arrSize; ++index) {
         for (int index2 = 0; index2 < arrSize; ++index2) {
             arr[index][index2] = index2 + index * arrSize;
-            std::cout<< arr[index][index2] << " ";
+            std::cout << arr[index][index2] << " ";
         }
-        std::cout<< "\n";
+        std::cout << "\n";
     }
-    std::ofstream ofs("z3_3.txt", std::ios::binary );
+    std::ofstream ofs("z3_3.txt", std::ios::binary);
     if (!ofs.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
     //ofs.write((char*)arr, sizeof(arr));
-    for(int index = 0; index < arrSize; ++index)
+    for (int index = 0; index < arrSize; ++index)
         ofs.write((char*)arr[index], sizeof(arr) * arrSize);
 
     ofs.close();
@@ -346,20 +355,20 @@ void additionThirdEx2() {
     int newNum;
     int numIndex;
     int numIndex2;
-    std::cout<< "Enter the number and its index1 && index2\n";
+    std::cout << "Enter the number and its index1 && index2\n";
     std::cin >> newNum >> numIndex >> numIndex2;
 
-    std::fstream fst("z3_3.txt", std::ios::binary  | std::ios::in | std::ios::out);
+    std::fstream fst("z3_3.txt", std::ios::binary | std::ios::in | std::ios::out);
     if (!fst.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
-    fst.seekg(0,  std::ios::end);
+    fst.seekg(0, std::ios::end);
     int lenght = fst.tellg();
-    std::cout<< "The file size ist: " << lenght << "bytes\n";
-    int possition = (numIndex * arrSize * sizeof(int)) + numIndex2 * sizeof(int) ;
+    std::cout << "The file size ist: " << lenght << "bytes\n";
+    int possition = (numIndex * arrSize*2 * sizeof(int)) + numIndex2 * sizeof(int);
 
-    std::cout<< "Position of the edited element: " << possition << '\n';
+    std::cout << "Position of the edited element: " << possition << '\n';
     fst.seekp(possition, std::ios::beg);
     fst.write((char*)&newNum, sizeof(int));
     fst.seekg(0);
@@ -368,9 +377,9 @@ void additionThirdEx2() {
 
     for (int index = 0; index < arrSize; ++index) {
         for (int index2 = 0; index2 < arrSize; ++index2) {
-            std::cout<< arr[index][index2] << " ";
+            std::cout << arr[index][index2] << " ";
         }
-        std::cout<< "\n";
+        std::cout << "\n";
     }
 
 }
@@ -381,12 +390,12 @@ void additionThirdEx3() {
         arr[index] = index;
     }
     for (int index = 0; index < arrSize; ++index) {
-        std::cout<< arr[index] << " ";
-        
+        std::cout << arr[index] << " ";
+
     }
-    std::ofstream ofs("z3_3.txt", std::ios::binary );
+    std::ofstream ofs("z3_3.txt", std::ios::binary);
     if (!ofs.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
     for (int index = 0; index < arrSize; ++index)
@@ -397,42 +406,42 @@ void additionThirdEx3() {
     int newNum;
     int numIndex;
     int numIndex2;
-    std::cout<< "Enter the index you want to delete\n";
+    std::cout << "Enter the index you want to delete\n";
     std::cin >> numIndex;
 
-    std::fstream fst("z3_3.txt", std::ios::binary  | std::ios::in | std::ios::out);
+    std::fstream fst("z3_3.txt", std::ios::binary | std::ios::in | std::ios::out);
     if (!fst.is_open()) {
-        std::cout<< "An error has occurred\n";
+        std::cout << "An error has occurred\n";
         return;
     }
-    fst.seekg(0,  std::ios::end);
+    fst.seekg(0, std::ios::end);
     int lenght = fst.tellg();
-    std::cout<< "The file size ist: " << lenght << "bytes\n";
+    std::cout << "The file size ist: " << lenght << "bytes\n";
     int possition = (numIndex * sizeof(int));
     int tmp[arrSize - 1];
-    
+
     fst.seekp(possition, std::ios::beg);
-    for (int index = numIndex + 1 ; index < arrSize; ++index) {
+    for (int index = numIndex + 1; index < arrSize; ++index) {
         fst.write((char*)&arr[index], sizeof(int));
     }
     fst.seekg(0);
     fst.read((char*)arr, sizeof(arr));
 
-    for (int index = 0; index < arrSize-1; ++index) {
-        std::cout<< arr[index] << " ";
+    for (int index = 0; index < arrSize - 1; ++index) {
+        std::cout << arr[index] << " ";
     }
     fst.close();
 }
 void fourEx() {
     std::ifstream firstFile;
     std::ifstream secondFile;
-    
+
     firstFile.open("first.dat");
     secondFile.open("second.txt");
 
     if (!(firstFile.is_open() && secondFile.is_open())) {
-        std::cout<< "The error was occure\n";
-            return;
+        std::cout << "The error was occure\n";
+        return;
     }
     char* firstBuf;
     char* secondBuf;
@@ -443,23 +452,23 @@ void fourEx() {
     secondBufSize = calculateSize(secondFile);
 
     if (firstBufSize != secondBufSize) {
-        std::cout<< "Files have different sizes\n";
+        std::cout << "Files have different sizes\n";
         return;
     }
     firstBuf = new char[firstBufSize];
     secondBuf = new char[secondBufSize];
-   
+
     firstFile.read((char*)firstBuf, sizeof(int) * firstBufSize);
     secondFile.read((char*)secondBuf, sizeof(int) * secondBufSize);
 
     for (int index = 0; index < firstBufSize && index < secondBufSize; ++index)
     {
         if (firstBuf[index] != secondBuf[index]) {
-            std::cout<< "Files have different content\n";
+            std::cout << "Files have different content\n";
             return;
         }
     }
-    std::cout<< "Files are absolutely identical\n";
+    std::cout << "Files are absolutely identical\n";
 }
 void additionFourEx() {
     std::ifstream firstFile;
@@ -469,7 +478,7 @@ void additionFourEx() {
     secondFile.open("second.txt");
 
     if (!(firstFile.is_open() && secondFile.is_open())) {
-        std::cout<< "The error was occure\n";
+        std::cout << "The error was occure\n";
         return;
     }
     char* firstBuf;
@@ -482,7 +491,7 @@ void additionFourEx() {
     secondBufSize = calculateSize(secondFile);
 
     if (firstBufSize != secondBufSize) {
-        std::cout<< "Files have different sizes and content\n";
+        std::cout << "Files have different sizes and content\n";
         isEquals = false;
     }
     firstBuf = new char[firstBufSize];
@@ -494,13 +503,13 @@ void additionFourEx() {
         for (int index = 0; index < firstBufSize && index < secondBufSize; ++index)
         {
             if (firstBuf[index] != secondBuf[index]) {
-                std::cout<< "Files have different content\n";
+                std::cout << "Files have different content\n";
                 isEquals = false;
 
             }
         }
-        if (isEquals) 
-            std::cout<< "Files are absolutely identical\n";
+        if (isEquals)
+            std::cout << "Files are absolutely identical\n";
     }
     bool isContainFirst, isContainSecond;
     for (int index = 0, index2, index3; index < firstBufSize && index < secondBufSize; ++index) {
@@ -518,10 +527,10 @@ void additionFourEx() {
                     break;
                 }
             }
-            
+
         }
-        if (isContainFirst|| isContainSecond) {
-            std::cout<< "One file ist part of another one\n";
+        if (isContainFirst || isContainSecond) {
+            std::cout << "One file ist part of another one\n";
             break;
         }
     }
